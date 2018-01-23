@@ -8,15 +8,19 @@
 use App\RecList\Cons;
 use App\RecList\Nil;
 
-/**
- * @param array $array
- * @return \App\RecList\RecList
- * */
-function recList(array $array)
-{
-    if (!count($array)) {
-        return new Nil;
+if (! function_exists('recList')) {
+
+    /**
+     * @param array $array
+     * @return \App\RecList\RecList
+     * */
+    function recList(array $array)
+    {
+        if (!count($array)) {
+            return new Nil;
+        }
+
+        return new Cons(array_shift($array), recList($array));
     }
 
-    return new Cons(array_shift($array), recList($array));
 }
