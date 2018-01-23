@@ -16,7 +16,7 @@
             "App\\": "src/"
         },
         "files": [
-            "RecList/functions.php"
+            "src/RecList/functions.php"
         ]
     }
 }
