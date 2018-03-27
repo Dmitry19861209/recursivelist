@@ -1,11 +1,10 @@
 <?php
-/**
- * @author Derzhaev Dmitry
- * Абстрактный класс RecList, подобно спискам из scala.
- */
-
 namespace App\RecList;
 
+/**
+ * @author Derzhaev Dmitry
+ * Абстрактный класс RecList представляет списки.
+ */
 
 abstract class RecList
 {
@@ -58,41 +57,19 @@ abstract class RecList
         }
     }
 
-    abstract protected function head();
+    abstract public function get($n);
 
-    abstract protected function isEmpty();
+    abstract public function head();
 
-    public function length()
-    {
-        return $this->foldRight(0, function ($a, $b) {
-            return $b + 1;
-        });
-    }
+    abstract public function isEmpty();
 
-    public function map($func)
-    {
-        if ($this->isNil($this)) {
-            return $this;
-        } else {
-            $this_ = $this->tail();
-            return new Cons($func($this->head()), $this_->map($func));
-        }
-    }
+    abstract public function length();
 
-    public function span($p)
-    {
-        $b = [];
-        $this_ = $this;
+    abstract public function map($func);
 
-        while (!$this_->isEmpty() && $p($this_->head())) {
-            $b[] = $this_->head();
-            $this_ = $this_->tail();
-        }
+    abstract public function span($p);
 
-        return [recList($b), $this_];
-    }
-
-    abstract protected function tail();
+    abstract public function tail();
 
     public function toArray()
     {
@@ -107,12 +84,12 @@ abstract class RecList
 //        } else return $this->loopAcc($th->tail(), ++$acc);
 //    }
 
-    private function isNil($this_)
+    protected function isNil($this_)
     {
         return (get_class($this_) === "App\RecList\Nil");
     }
 
-    private function isCons($this_)
+    protected function isCons($this_)
     {
         return (get_class($this_) === "App\RecList\Cons");
     }

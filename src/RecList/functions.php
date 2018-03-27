@@ -22,5 +22,4 @@ if (! function_exists('recList')) {
 
         return new Cons(array_shift($array), recList($array));
     }
-
 }

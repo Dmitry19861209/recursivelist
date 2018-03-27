@@ -1,25 +1,44 @@
 <?php
+namespace App\RecList;
+
 /**
  * Пустой список. Расширяет абстрактный класс RecList.
  */
 
-namespace App\RecList;
-
-
 class Nil extends RecList
 {
-    public function isEmpty()
+    public function tail()
     {
-       return true;
+        throw new \Exception("Вызван метод tail() пустого списка");
+    }
+
+    public function get($n)
+    {
+        throw new \Exception("Вызван метод get() пустого списка");
     }
 
     public function head()
     {
-       throw new \Exception("Вызван метод head() пустого списка");
+        throw new \Exception("Вызван метод head() пустого списка");
     }
 
-    public function tail()
+    public function isEmpty()
     {
-        throw new \Exception("Вызван метод tail() пустого списка");
+        return true;
+    }
+
+    public function length()
+    {
+        throw new \Exception("Вызван метод length() пустого списка");
+    }
+
+    public function map($func)
+    {
+        return $this;
+    }
+
+    public function span($p)
+    {
+        throw new \Exception("Вызван метод span() пустого списка");
     }
 }

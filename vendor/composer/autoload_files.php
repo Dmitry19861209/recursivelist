@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'f5db3cb88cea0d121ec496b23d9b30e8' => $baseDir . '/RecList/functions.php',
+    '0b65a268a9a9d9d0e87d2e8cf29a5337' => $baseDir . '/src/RecList/functions.php',
 );
