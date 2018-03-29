@@ -5,14 +5,14 @@
  * Эта функция представлена в роли объекта-компаньона для RecList.
  */
 
-use App\RecList\Cons;
-use App\RecList\Nil;
+use RecList\RecList\Cons;
+use RecList\RecList\Nil;
 
 if (! function_exists('recList')) {
 
     /**
      * @param array $array
-     * @return \App\RecList\RecList
+     * @return \RecList\RecList\RecList
      * */
     function recList(array $array)
     {

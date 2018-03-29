@@ -16,7 +16,7 @@
     },
     "autoload": {
 		"psr-4": {
-            "App\\": "src/"
+            "RecList\\": "src/"
         },
         "files": [
             "src/RecList/functions.php"

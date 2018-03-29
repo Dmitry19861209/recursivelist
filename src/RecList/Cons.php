@@ -1,5 +1,5 @@
 <?php
-namespace App\RecList;
+namespace RecList\RecList;
 
 /**
  *  Строит списки. Расширяет абстрактный класс RecList.
@@ -16,25 +16,47 @@ class Cons extends RecList
         $this->tail = $tail;
     }
 
-    public function isEmpty()
+    public function concat($x)
     {
-        return false;
+        if ($this->isNil($this)) {
+            $this_x = $x;
+            if (gettype($this_x) !== "object") {
+                return new Cons($this_x, new Nil);
+            } else if ($this->isCons($this_x)) {
+                $this_ = $this_x->tail();
+                return new Cons($this_x->head(), $this_->concat($this_->tail()));
+            } else return new Nil;
+        } else {
+            $this_ = $this->tail();
+            return new Cons($this->head(), $this_->concat($x));
+        }
     }
 
-    public function head()
+    public function filter($func)
     {
-        return $this->head;
+        $this_ = $this->tail();
+
+        if ($func($this->head())) {
+            return new Cons($this->head(), $this_->filter($func));
+        } else return $this_->filter($func);
     }
 
-    public function tail()
+    public function foldLeft($z, $op)
     {
-        return $this->tail;
+        $this_ = $this->tail();
+        return $this_->foldLeft($op($z, $this->head()), $op);
+    }
+
+    public function foldRight($z, $op)
+    {
+        $this_ = $this->tail();
+        return $this_->foldRight($op($this->head(), $z), $op);
     }
 
     public function get($n)
     {
-        if ($this->isNil($this) || $n >= $this->length()) {
-            return $this;
+        if ($n >= $this->length()) {
+            return false;
         } else {
             function loop($i, $n, $list) {
                 if ($i === $n) return $list->head();
@@ -42,6 +64,16 @@ class Cons extends RecList
             }
             return loop(0, $n, $this);
         }
+    }
+
+    public function head()
+    {
+        return $this->head;
+    }
+
+    public function isEmpty()
+    {
+        return false;
     }
 
     public function length()
@@ -53,12 +85,12 @@ class Cons extends RecList
 
     public function map($func)
     {
-        if ($this->isNil($this)) {
-            return $this;
-        } else {
+//        if ($this->isNil($this)) {
+//            return $this;
+//        } else {
             $this_ = $this->tail();
             return new Cons($func($this->head()), $this_->map($func));
-        }
+//        }
     }
 
     public function span($p)
@@ -72,5 +104,10 @@ class Cons extends RecList
         }
 
         return [recList($b), $this_];
+    }
+
+    public function tail()
+    {
+        return $this->tail;
     }
 }

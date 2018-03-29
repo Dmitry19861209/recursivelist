@@ -1,5 +1,5 @@
 <?php
-namespace App\RecList;
+namespace RecList\RecList;
 
 /**
  * @author Derzhaev Dmitry
@@ -8,54 +8,13 @@ namespace App\RecList;
 
 abstract class RecList
 {
-    public function concat($x)
-    {
-        if ($this->isNil($this)) {
-            $this_x = $x;
-            if (gettype($this_x) !== "object") {
-                return new Cons($this_x, new Nil);
-            } else if ($this->isCons($this_x)) {
-                $this_ = $this_x->tail();
-                return new Cons($this_x->head(), $this_->concat($this_->tail()));
-            } else return new Nil;
-        } else {
-            $this_ = $this->tail();
-            return new Cons($this->head(), $this_->concat($x));
-        }
-    }
+    abstract public function concat($x);
 
-    public function filter($func)
-    {
-        if ($this->isNil($this)) {
-            return $this;
-        } else {
-            $this_ = $this->tail();
+    abstract public function filter($func);
 
-            if ($func($this->head())) {
-                return new Cons($this->head(), $this_->filter($func));
-            } else return $this_->filter($func);
-        }
-    }
+    abstract public function foldLeft($z, $op);
 
-    public function foldLeft($z, $op)
-    {
-        if ($this->isNil($this)) {
-            return $z;
-        } else {
-            $this_ = $this->tail();
-            return $this_->foldLeft($op($z, $this->head()), $op);
-        }
-    }
-
-    public function foldRight($z, $op)
-    {
-        if ($this->isNil($this)) {
-            return $z;
-        } else {
-            $this_ = $this->tail();
-            return $this_->foldRight($op($this->head(), $z), $op);
-        }
-    }
+    abstract public function foldRight($z, $op);
 
     abstract public function get($n);
 
@@ -86,12 +45,11 @@ abstract class RecList
 
     protected function isNil($this_)
     {
-        return (get_class($this_) === "App\RecList\Nil");
+        return (get_class($this_) === "RecList\Nil");
     }
 
     protected function isCons($this_)
     {
-        return (get_class($this_) === "App\RecList\Cons");
+        return (get_class($this_) === "RecList\Cons");
     }
-
 }

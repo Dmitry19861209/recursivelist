@@ -1,5 +1,5 @@
 <?php
-namespace App\RecList;
+namespace RecList\RecList;
 
 /**
  * Пустой список. Расширяет абстрактный класс RecList.
@@ -7,9 +7,24 @@ namespace App\RecList;
 
 class Nil extends RecList
 {
-    public function tail()
+    public function concat($x)
     {
-        throw new \Exception("Вызван метод tail() пустого списка");
+        throw new \Exception("Вызван метод concat() пустого списка");
+    }
+
+    public function filter($func)
+    {
+        return $this;
+    }
+
+    public function foldLeft($z, $op)
+    {
+        return $z;
+    }
+
+    public function foldRight($z, $op)
+    {
+        return $z;
     }
 
     public function get($n)
@@ -40,5 +55,10 @@ class Nil extends RecList
     public function span($p)
     {
         throw new \Exception("Вызван метод span() пустого списка");
+    }
+
+    public function tail()
+    {
+        throw new \Exception("Вызван метод tail() пустого списка");
     }
 }

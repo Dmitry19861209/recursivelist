@@ -23,13 +23,13 @@ class ComposerStaticInit21305441c6cce96d5df3788ca458da66
         array (
             'Symfony\\Component\\Yaml\\' => 23,
         ),
+        'R' => 
+        array (
+            'RecList\\' => 8,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
         ),
     );
 
@@ -48,13 +48,13 @@ class ComposerStaticInit21305441c6cce96d5df3788ca458da66
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
+        'RecList\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
-        ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
