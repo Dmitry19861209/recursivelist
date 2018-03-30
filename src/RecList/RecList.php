@@ -8,7 +8,12 @@ namespace RecList\RecList;
 
 abstract class RecList
 {
-    abstract public function concat($x);
+    /**
+     * Возвращает новый список, содержащий элементы обоих списков.
+     */
+    abstract public function concat($list): RecList;
+
+    abstract public function concatList(RecList $list): RecList;
 
     abstract public function filter($func);
 
@@ -45,11 +50,16 @@ abstract class RecList
 
     protected function isNil($this_)
     {
-        return (get_class($this_) === "RecList\Nil");
+        return (get_class($this_) === "RecList\RecList\Nil");
     }
 
     protected function isCons($this_)
     {
-        return (get_class($this_) === "RecList\Cons");
+        return (get_class($this_) === "RecList\RecList\Cons");
+    }
+
+    protected function loopWithIterator($i, $n, $list) {
+        if ($i === $n) return $list->head();
+        else return $this->loopWithIterator($i + 1, $n, $list->tail());
     }
 }

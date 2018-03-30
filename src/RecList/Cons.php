@@ -16,10 +16,10 @@ class Cons extends RecList
         $this->tail = $tail;
     }
 
-    public function concat($x)
+    public function concat($list): RecList
     {
         if ($this->isNil($this)) {
-            $this_x = $x;
+            $this_x = $list;
             if (gettype($this_x) !== "object") {
                 return new Cons($this_x, new Nil);
             } else if ($this->isCons($this_x)) {
@@ -28,8 +28,13 @@ class Cons extends RecList
             } else return new Nil;
         } else {
             $this_ = $this->tail();
-            return new Cons($this->head(), $this_->concat($x));
+            return new Cons($this->head(), $this_->concat($list));
         }
+    }
+
+    public function concatList(RecList $list): RecList {
+        $this_ = $this->tail();
+        return new Cons($this->head(), $this_->concatList($list));
     }
 
     public function filter($func)
@@ -55,15 +60,8 @@ class Cons extends RecList
 
     public function get($n)
     {
-        if ($n >= $this->length()) {
-            return false;
-        } else {
-            function loop($i, $n, $list) {
-                if ($i === $n) return $list->head();
-                else return loop($i + 1, $n, $list->tail());
-            }
-            return loop(0, $n, $this);
-        }
+        if ($n >= $this->length()) return false;
+        else return $this->loopWithIterator(0, $n, $this);
     }
 
     public function head()

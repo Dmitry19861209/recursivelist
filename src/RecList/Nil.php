@@ -7,9 +7,14 @@ namespace RecList\RecList;
 
 class Nil extends RecList
 {
-    public function concat($x)
+    public function concat($x): RecList
     {
         throw new \Exception("Вызван метод concat() пустого списка");
+    }
+
+    public function concatList(RecList $list): RecList {
+        if ($this->isNil($list)) return new Nil;
+        else return $list->concatList(new Nil);
     }
 
     public function filter($func)
@@ -29,7 +34,7 @@ class Nil extends RecList
 
     public function get($n)
     {
-        throw new \Exception("Вызван метод get() пустого списка");
+        return false;
     }
 
     public function head()
@@ -44,7 +49,7 @@ class Nil extends RecList
 
     public function length()
     {
-        throw new \Exception("Вызван метод length() пустого списка");
+        return 0;
     }
 
     public function map($func)

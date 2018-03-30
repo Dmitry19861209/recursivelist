@@ -12,6 +12,12 @@ class RecTest extends TestCase
         $this->assertEquals($this->numList()->get(1), 2);
     }
 
+    /* Соединить два списка */
+    function testConcatTwoList()
+    {
+        $this->assertEquals($this->numList()->concatList(recList([4, 5, 6]))->get(3), 4);
+    }
+
     function testListHead()
     {
         $this->assertEquals($this->numList()->head(), 1);
