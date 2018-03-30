@@ -16,20 +16,10 @@ class Cons extends RecList
         $this->tail = $tail;
     }
 
-    public function concat($list): RecList
+    public function concatElem($elem): RecList
     {
-        if ($this->isNil($this)) {
-            $this_x = $list;
-            if (gettype($this_x) !== "object") {
-                return new Cons($this_x, new Nil);
-            } else if ($this->isCons($this_x)) {
-                $this_ = $this_x->tail();
-                return new Cons($this_x->head(), $this_->concat($this_->tail()));
-            } else return new Nil;
-        } else {
-            $this_ = $this->tail();
-            return new Cons($this->head(), $this_->concat($list));
-        }
+        $this_ = $this->tail();
+        return new Cons($this->head(), $this_->concatElem($elem));
     }
 
     public function concatList(RecList $list): RecList {
@@ -37,10 +27,9 @@ class Cons extends RecList
         return new Cons($this->head(), $this_->concatList($list));
     }
 
-    public function filter($func)
+    public function filter($func): RecList
     {
         $this_ = $this->tail();
-
         if ($func($this->head())) {
             return new Cons($this->head(), $this_->filter($func));
         } else return $this_->filter($func);
@@ -83,12 +72,8 @@ class Cons extends RecList
 
     public function map($func)
     {
-//        if ($this->isNil($this)) {
-//            return $this;
-//        } else {
-            $this_ = $this->tail();
-            return new Cons($func($this->head()), $this_->map($func));
-//        }
+        $this_ = $this->tail();
+        return new Cons($func($this->head()), $this_->map($func));
     }
 
     public function span($p)

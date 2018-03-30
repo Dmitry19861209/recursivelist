@@ -7,9 +7,9 @@ namespace RecList\RecList;
 
 class Nil extends RecList
 {
-    public function concat($x): RecList
+    public function concatElem($elem): RecList
     {
-        throw new \Exception("Вызван метод concat() пустого списка");
+        return new Cons($elem, new Nil);
     }
 
     public function concatList(RecList $list): RecList {
@@ -17,7 +17,7 @@ class Nil extends RecList
         else return $list->concatList(new Nil);
     }
 
-    public function filter($func)
+    public function filter($func): RecList
     {
         return $this;
     }

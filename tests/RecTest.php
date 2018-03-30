@@ -15,14 +15,24 @@ class RecTest extends TestCase
     /* Соединить два списка */
     function testConcatTwoList()
     {
-        $this->assertEquals($this->numList()->concatList(recList([4, 5, 6]))->get(3), 4);
+        $obj = $this->numList()->concatList(recList([4, 5, 6]));
+        $this->assertEquals($obj->get(3), 4);
     }
 
+    /* Добавить элемент в список */
+    function testConcatElem()
+    {
+        $obj = $this->numList()->concatElem(4);
+        $this->assertEquals($obj->get(3), 4);
+    }
+
+    /* Вернуть первый элемент списка */
     function testListHead()
     {
         $this->assertEquals($this->numList()->head(), 1);
     }
 
+    /*  */
     function testMapMethod()
     {
         $result = $this->numList()->map(function ($i) {
